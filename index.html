@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Allworth-Miles</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Matemasie&family=Monoton&family=Monsieur+La+Doulaise&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=New+Amsterdam&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DK+Loopet:wght@100..400&family=Raleway:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&family=Young+Serif&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header bar -->
+    <div class="header">
+        <ul class="tabs">
+            <!-- Tabs -->
+            <div id="left">
+            <li><a id="1" class="name" style="font-size: 2rem; font-weight: 400; color: #20412c; margin-left: -27px;">Max Allworth-Miles</a></li>
+        </div>
+        <div id="right">
+            <li><a id="2" class="invis" >Photography</a></li>
+            <li><a id="3" class="invis" >Coding Projects</a></li>
+            <li><a id="4" class="invis" >Type & Color</a></li>
+        </div>
+        </ul>
+    </div>
+
+    <!-- 🍔 menu for smaller screens -->
+    <label class="burger">
+        <input class="burgerbox" type="checkbox"/>
+    </label>
+    <ul class="mobile-tabs">
+        <div id="mobile-menu">
+        <li><a id="2" class="invis">Photography</a></li>
+        <li><a id="3" class="invis">Coding Projects</a></li>
+        <li><a id="4" class="invis">Type & Color</a></li>
+    </div>
+    </ul>
+
+    <!-- Home -->
+    <div class="page" id="page1">
+        <div id="home-div">
+            <p class="about-me"> Hey! I'm Max. I am a third-year Computer Science student at Cal Poly San Luis Obispo.
+                I am really interested in Artificial Intelligence and how it can be used to enhance
+                User Experience.
+            </p>
+        </div>
+    </div>
+
+    <!-- Photos -->
+    <div class="page" id="page2">
+        <div id="photoContainer" class="image-container"></div>
+        <div id="overlay"></div>
+    </div>
+
+    <!-- Coding -->
+    <div class="page" id="page3" style="margin: 16px;">
+        <h2>ASCII Video Generator</h2>
+                <video id="webcamVideo" autoplay playsinline style="display:none;"></video>
+                <canvas id="webcamCanvas"></canvas>
+                <canvas id="ascii"></canvas>
+
+            <p> I initially wrote a Python program that created a video-like effect by rapidly printing
+                "frames" as blocks of text in the terminal, sourcing data from a pre-recorded video.
+                Later, I developed a JavaScript version that writes characters on a video canvas on an HTML webpage
+                based on live webcam footage</p>
+            <h2>TerminalStats</h2>
+            <img src="imgs/term.png" alt="Screenshot of my custom terminal" class="non-photography-img">
+            <p> I wrote a C program that elevates the macOS terminal experience with ASCII art 
+                and real-time system stats using various system information retrieval methods. 
+                Get it <a href="https://github.com/mallworth/TerminalStats">here</a>!</p>
+    </div> 
+    
+    <!-- Type & Color -->
+    <div class="page" id="page4">
+        <div class="inputcontainer">
+            <input id="typesomething" type="text" placeholder="Type Something...">
+        </div>
+
+        <p id="backgroundcolor">#ffffff</p>
+        <p id="typecolor">#2c3628</p>
+
+        <!-- Color wheel -->
+        <div id="wheelcontainer">
+            <div class="colorpicker" id="backgroundpicker"></div>
+            <div class="colorpicker" id="typepicker"></div>
+            
+            <!-- Font choices -->
+            <select id="font">
+                    <option value="Playfair Display">Playfair Display</option>
+                    <option value="Young Serif">Young Serif</option>
+                    <option value="Inter">Inter</option>
+                    <option value="Space Grotesk">Space Grotesk</option>
+                    <option value="Monsieur La Doulaise">Monsieur La Doulaise</option>
+                    <option value="Monoton">Monoton</option>
+                    <option value="Montserrat Alternates">Montserrat Alternates</option>
+                    <option value="Archivo Black">Archivo Black</option>
+                    <option value="Bodoni Moda SC">Bodoni Moda SC</option>
+                    <option value="New Amsterdam">New Amsterdam</option>
+                    <option value="Raleway">Raleway</option>
+                    <option value="Playwrite Danmark Loopet">Playwrite Danmark Loopet</option>
+                    <option value="Matemasie">Matemasie</option>
+                    <option value="Josefin Sans">Josefin Sans</option>
+                    <option value="Barlow Condensed">Barlow Condensed</option>
+            </select>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5.5.1/dist/iro.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
