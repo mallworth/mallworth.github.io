@@ -305,6 +305,7 @@ canvas {
         transform-origin: left center;
         transition: opacity var(--burger-timing), width var(--burger-timing),
         rotate var(--burger-timing), translate var(--burger-timing), height var(--burger-timing);
+        border-radius: 2px;
     }
 
     .burger input {
