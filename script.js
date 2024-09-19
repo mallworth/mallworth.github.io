@@ -4,7 +4,7 @@ $(document).ready(function() {
         'imgs/moab2.jpg',
         'imgs/alaska2.jpg',
         'imgs/slo1.jpg',
-        'imgs/antonio1.PNG',
+        'imgs/antonio1.jpg',
         'imgs/alaska1.jpg',
         'imgs/alaska5.jpeg',
         'imgs/alaska3.jpg',
