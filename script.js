@@ -174,29 +174,32 @@ $(document).ready(function() {
 
     $('.page').hide();
     $('#page1').show();
-    $('#typesomething').focus();
 
     // Function to handle tab switching
     $('li a').click(function(){
-    let curId = $(this).attr('id');
+        let curId = $(this).attr('id');
 
-    if ($(this).hasClass('invis')){   
-        // Add invis everywhere so home can be switched back to
-        $('li a').addClass('invis');        
-        $(this).removeClass('invis');
-        $('.page').hide();
+        if ($(this).hasClass('invis')){   
+            // Add invis everywhere so home can be switched back to
+            $('li a').addClass('invis');        
+            $(this).removeClass('invis');
+            $('.page').hide();
 
-        // Close burger if open
-        if ($('.burgerbox').is(':checked')) {
-            $('.burgerbox[type="checkbox"]').prop('checked', false);
+            // Close burger if open
+            if ($('.burgerbox').is(':checked')) {
+                $('.burgerbox[type="checkbox"]').prop('checked', false);
+            }
+
+            // Concatenate to get page id
+            $('#page' + curId).show();  
+
+            // Focus on input box if on T&C
+            if (curId == '4') {
+                $('#typesomething').focus();
+            }
         }
-
-        // Concatenate to get page id
-        $('#page' + curId).show();  
-    }
     });
-   
-    
+
     // Type & Color
     // Color picker widget from https://iro.js.org/
     let cpb = new iro.ColorPicker('#backgroundpicker', {
