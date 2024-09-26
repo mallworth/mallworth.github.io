@@ -312,85 +312,89 @@ $(document).ready(function() {
     }
 
 
+    function resizeCanvas(canvasElement) {
+        canvasElement.width = videoElement.videoWidth * 1.2;
+        canvasElement.height = videoElement.videoHeight * 1.2;
+    }
+
+
+    function drawFrame(context, canvasElement) {
+        context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+        // Mirror webcam feed
+        context.translate(canvasElement.width, 0);
+        context.scale(-1, 1);
+
+        context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
+
+        const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+        const data = frame.data;
+
+        context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        context.fillStyle = 'black';
+
+        let font_size = Math.round((-0.035)*($(window).width()) + 44.5);
+        let spacing = Math.round(font_size - (font_size * 0.1875));
+        
+        let color = $('.name').css('color');
+        context.font = '800 ${font_size}px Monaco';
+        context.fillStyle = color;
+
+        for (let y = 0; y < canvasElement.height; y += spacing) {
+            for (let x = 0; x < canvasElement.width; x += spacing) {
+
+                const index = ((y * canvasElement.width) + x) * 4;
+                const red = data[index];
+                const green = data[index + 1];
+                const blue = data[index + 2];
+                // Avg values to find brightness
+                const brightness = (red + green + blue) / 3;
+
+                const chars = [[0, ' '],
+                            [70, ','],
+                            [100, '~'],
+                            [150, '*'],
+                            [190, '?'],
+                            [230, '$'],
+                            [245, '#'],
+                            [255, '@']]
+
+                let char = ' ';
+
+                for (let i = 0; i < 8; i++) {
+                    if (chars[i][0] <= brightness  && brightness <= chars[i+1][0]) {
+                        char = chars[i][1];
+                    }
+                }
+
+                if (char == ' ') {
+                    char = chars[7][1];
+                }
+
+                context.fillText(char, x, y);
+            }
+        }
+
+        requestAnimationFrame(drawFrame(context, canvasElement));
+    }
+
+
     function processFrames() {
         const videoElement = document.getElementById('webcamVideo');
         const canvasElement = document.getElementById('webcamCanvas');
         const context = canvasElement.getContext('2d', { willReadFrequently: true});
 
-        function resizeCanvas() {
-            canvasElement.width = videoElement.videoWidth * 2;
-            canvasElement.height = videoElement.videoHeight * 2;
-        }
+        videoElement.addEventListener('loadedmetadata', resizeCanvas(canvasElement));
 
-        videoElement.addEventListener('loadedmetadata', resizeCanvas);
 
-        function drawFrame() {
-            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-            // Mirror webcam feed
-            context.translate(canvasElement.width, 0);
-            context.scale(-1, 1);
-
-            context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-            context.setTransform(1, 0, 0, 1, 0, 0);
-
-            const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
-            const data = frame.data;
-
-            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-            context.fillStyle = 'black';
-
-            let font_size = 16;
-
-            let spacing = Math.round(font_size - (font_size * 0.1875));
-            let color = $('.name').css('color');
-            context.font = '800 ${font_size}px Monaco';
-            context.fillStyle = color;
-
-            for (let y = 0; y < canvasElement.height; y += spacing) {
-                for (let x = 0; x < canvasElement.width; x += spacing) {
-
-                    const index = ((y * canvasElement.width) + x) * 4;
-                    const red = data[index];
-                    const green = data[index + 1];
-                    const blue = data[index + 2];
-                    // Avg values to find brightness
-                    const brightness = (red + green + blue) / 3;
-
-                    const chars = [[0, ' '],
-                                [70, ','],
-                                [100, '~'],
-                                [150, '*'],
-                                [190, '?'],
-                                [230, '$'],
-                                [245, '#'],
-                                [255, '@']]
-
-                    let char = ' ';
-
-                    for (let i = 0; i < 8; i++) {
-                        if (chars[i][0] <= brightness  && brightness <= chars[i+1][0]) {
-                            char = chars[i][1];
-                        }
-                    }
-
-                    if (char == ' ') {
-                        char = chars[7][1];
-                    }
-
-                    context.fillText(char, x, y);
-                }
-            }
-
-            requestAnimationFrame(drawFrame);
-        }
 
         videoElement.addEventListener('play', () => {
-            resizeCanvas();
-            requestAnimationFrame(drawFrame);
+            resizeCanvas(canvasElement);
+            requestAnimationFrame(drawFrame(context, canvasElement));
         });
 
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('resize', resizeCanvas(canvasElement));
     }
 });
