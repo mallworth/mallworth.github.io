@@ -197,6 +197,8 @@ $(document).ready(function() {
                 // Focus on input box if on T&C
                 if (curId == '4' && $(window).width() > 800) {
                     $('#typesomething').focus();
+                } else if (curId == '3') {
+                    startWebcam();
                 }
               }, '100');
 
@@ -391,6 +393,4 @@ $(document).ready(function() {
 
         window.addEventListener('resize', resizeCanvas);
     }
-
-    startWebcam();
 });
