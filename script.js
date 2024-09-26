@@ -195,7 +195,7 @@ $(document).ready(function() {
 
             setTimeout(() => {
                 // Focus on input box if on T&C
-                if (curId == '4') {
+                if (curId == '4' && $(window).width() > 800) {
                     $('#typesomething').focus();
                 }
               }, '100');
