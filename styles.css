@@ -259,10 +259,13 @@ canvas {
 
 /* Smaller window styling */
 @media (max-width: 800px) {
+    .spacer {
+        margin: 80px !important;
+    }
+    
     #jawn {
         margin-top: -20px;
     }
-
 
     .about-me {
         text-align: justify;
@@ -378,10 +381,6 @@ canvas {
 
 
 @media (max-width: 410px) {
-    .spacer {
-        margin: 80px !important;
-    }
-
     h2 {
         font-size: 16px;
     }
