@@ -193,10 +193,14 @@ $(document).ready(function() {
             // Concatenate to get page id
             $('#page' + curId).show();  
 
-            // Focus on input box if on T&C
-            if (curId == '4') {
-                $('#typesomething').focus();
-            }
+            setTimeout(() => {
+                // Focus on input box if on T&C
+                if (curId == '4') {
+                    $('#typesomething').focus();
+                }
+              }, '100');
+
+            
         }
     });
 
