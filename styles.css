@@ -63,6 +63,9 @@ li a {
     margin-bottom: 7px;
 }
 
+.spacer {
+    margin: 0;
+}
 
 /* Type & Color */
 .inputcontainer {
@@ -375,6 +378,10 @@ canvas {
 
 
 @media (max-width: 410px) {
+    .spacer {
+        margin: 80px !important;
+    }
+
     h2 {
         font-size: 16px;
     }

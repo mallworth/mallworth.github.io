@@ -159,6 +159,9 @@ $(document).ready(function() {
     }
 
     function handleResize() {
+        if ($('#page2').hasClass('invis')) {
+            return
+        }
         const screenWidth = window.innerWidth || document.documentElement.clientWidth;
         scalePhotos(screenWidth, photoURLs);
     }
@@ -171,6 +174,7 @@ $(document).ready(function() {
 
     $('.page').hide();
     $('#page1').show();
+    $('#typesomething').focus();
 
     // Function to handle tab switching
     $('li a').click(function(){
