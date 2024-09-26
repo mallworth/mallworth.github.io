@@ -289,95 +289,18 @@ $(document).ready(function() {
 
 
     // CODING: TTimage video stream
-    // let font_size = 12;
-
-    // function change_font_size(increment) {
-    //     font_size += increment;
-    //     drawFrame();
-    // }
-
-
     function startWebcam() {
-        const videoElement = document.getElementById('webcamVideo');
-        const constraints = { video: true };
+    const videoElement = document.getElementById('webcamVideo');
+    const constraints = { video: true };
 
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then(stream => {
-                videoElement.srcObject = stream;
-                processFrames();
-            })
-            .catch(error => {
-                console.error('Error accessing webcam: ', error);
-            });
-    }
-
-
-    function resizeCanvas(canvasElement) {
-        canvasElement.width = videoElement.videoWidth * 1.2;
-        canvasElement.height = videoElement.videoHeight * 1.2;
-    }
-
-
-    function drawFrame(context, canvasElement) {
-        context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-        // Mirror webcam feed
-        context.translate(canvasElement.width, 0);
-        context.scale(-1, 1);
-
-        context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-        context.setTransform(1, 0, 0, 1, 0, 0);
-
-        const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
-        const data = frame.data;
-
-        context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-        context.fillStyle = 'black';
-
-        let font_size = Math.round((-0.035)*($(window).width()) + 44.5);
-        let spacing = Math.round(font_size - (font_size * 0.1875));
-        
-        let color = $('.name').css('color');
-        context.font = '800 ${font_size}px Monaco';
-        context.fillStyle = color;
-
-        for (let y = 0; y < canvasElement.height; y += spacing) {
-            for (let x = 0; x < canvasElement.width; x += spacing) {
-
-                const index = ((y * canvasElement.width) + x) * 4;
-                const red = data[index];
-                const green = data[index + 1];
-                const blue = data[index + 2];
-                // Avg values to find brightness
-                const brightness = (red + green + blue) / 3;
-
-                const chars = [[0, ' '],
-                            [70, ','],
-                            [100, '~'],
-                            [150, '*'],
-                            [190, '?'],
-                            [230, '$'],
-                            [245, '#'],
-                            [255, '@']]
-
-                let char = ' ';
-
-                for (let i = 0; i < 8; i++) {
-                    if (chars[i][0] <= brightness  && brightness <= chars[i+1][0]) {
-                        char = chars[i][1];
-                    }
-                }
-
-                if (char == ' ') {
-                    char = chars[7][1];
-                }
-
-                context.fillText(char, x, y);
-            }
-        }
-
-        requestAnimationFrame(drawFrame(context, canvasElement));
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+            videoElement.srcObject = stream;
+            processFrames();
+        })
+        .catch(error => {
+            console.error('Error accessing webcam: ', error);
+        })
     }
 
 
@@ -385,16 +308,97 @@ $(document).ready(function() {
         const videoElement = document.getElementById('webcamVideo');
         const canvasElement = document.getElementById('webcamCanvas');
         const context = canvasElement.getContext('2d', { willReadFrequently: true});
+        let font_size;
 
-        videoElement.addEventListener('loadedmetadata', resizeCanvas(canvasElement));
+        if ($(window).width() > 800) {
+            font_size = 16;
+        } else {
+            font_size = Math.round((-0.035)*($(window).width()) + 100);
+        }
 
+        // let spacing = Math.round(font_size - (font_size * 0.1875));
+        let spacing = font_size
 
+        function resizeCanvas() {
+            canvasElement.width = videoElement.videoWidth * 2;
+            canvasElement.height = videoElement.videoHeight * 2;
+
+            if ($(window).width() > 800) {
+                font_size = 16;
+            } else {
+                font_size = Math.round((-0.035)*($(window).width()) + 44.5);
+            }
+
+            // let spacing = Math.round(font_size - (font_size * 0.1875));
+            let spacing = font_size
+        }
+
+        videoElement.addEventListener('loadedmetadata', resizeCanvas);
+
+        function drawFrame() {
+            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+            // Mirror webcam feed
+            context.translate(canvasElement.width, 0);
+            context.scale(-1, 1);
+
+            context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+            context.setTransform(1, 0, 0, 1, 0, 0);
+
+            const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+            const data = frame.data;
+
+            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+            let color = $('.name').css('color');
+            context.font = '800 ${font_size}px Monaco';
+            context.fillStyle = color;
+
+            for (let y = 0; y < canvasElement.height; y += spacing) {
+                for (let x = 0; x < canvasElement.width; x += spacing) {
+
+                    const index = ((y * canvasElement.width) + x) * 4;
+                    const red = data[index];
+                    const green = data[index + 1];
+                    const blue = data[index + 2];
+                    const brightness = (red + green + blue) / 3;
+
+                    const chars = [[0, ' '],
+                                    [70, ','],
+                                    [100, '~'],
+                                    [150, '*'],
+                                    [190, '?'],
+                                    [230, '$'],
+                                    [245, '#'],
+                                    [255, '@']]
+
+                    let char = 'x';
+
+                    for (let i = 0; i < 6; i++) {
+                        if (chars[i][0] <= brightness && brightness <= chars[i+1][0]) {
+                            char = chars[i][1];
+                        }
+                    }
+
+                    if (char == 'x') {
+                        char = chars[7][1];
+                    }
+
+                    context.fillText(char, x, y);
+                }
+            }
+
+            requestAnimationFrame(drawFrame);
+        }
 
         videoElement.addEventListener('play', () => {
-            resizeCanvas(canvasElement);
-            requestAnimationFrame(drawFrame(context, canvasElement));
+            resizeCanvas();
+            requestAnimationFrame(drawFrame);
         });
 
-        window.addEventListener('resize', resizeCanvas(canvasElement));
+        window.addEventListener('resize', resizeCanvas);
     }
 });
+
+
