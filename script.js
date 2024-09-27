@@ -310,27 +310,22 @@ $(document).ready(function() {
         const context = canvasElement.getContext('2d', { willReadFrequently: true});
         let font_size;
 
-        if ($(window).width() > 800) {
-            font_size = 16;
-        } else {
-            font_size = Math.round((-0.035)*($(window).width()) + 100);
-        }
+        font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
 
         // let spacing = Math.round(font_size - (font_size * 0.1875));
-        let spacing = font_size
+        let spacing = font_size - 6;
 
         function resizeCanvas() {
             canvasElement.width = videoElement.videoWidth * 2;
             canvasElement.height = videoElement.videoHeight * 2;
 
-            if ($(window).width() > 800) {
-                font_size = 16;
-            } else {
-                font_size = Math.round((-0.035)*($(window).width()) + 44.5);
-            }
+            font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
 
             // let spacing = Math.round(font_size - (font_size * 0.1875));
-            let spacing = font_size
+            // spacing = font_size - Math.min(6, Math.round($(window).width() / 100));
+            spacing = Math.min(12, font_size);
+            console.log(font_size);
+            // console.log(spacing);
         }
 
         videoElement.addEventListener('loadedmetadata', resizeCanvas);
