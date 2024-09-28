@@ -328,17 +328,12 @@ $(document).ready(function() {
         })
     }
 
-
     function processFrames() {
         const videoElement = document.getElementById('webcamVideo');
         const canvasElement = document.getElementById('webcamCanvas');
-        // const context = canvasElement.getContext('2d', { willReadFrequently: true});
-        const context = canvasElement.getContext('2d');
-        let font_size;
-
-        font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
-
-        // let spacing = Math.round(font_size - (font_size * 0.1875));
+        const context = canvasElement.getContext('2d', { willReadFrequently: true});
+        // const context = canvasElement.getContext('2d');
+        let font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
         let spacing = Math.min(12, font_size);
 
         function resizeCanvas() {
@@ -346,15 +341,8 @@ $(document).ready(function() {
             canvasElement.height = videoElement.videoHeight * 2;
 
             font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
-
-            // let spacing = Math.round(font_size - (font_size * 0.1875));
-            // spacing = font_size - Math.min(6, Math.round($(window).width() / 100));
             spacing = Math.min(12, font_size);
-            // console.log(font_size);
-            // console.log(spacing);
         }
-
-        videoElement.addEventListener('loadedmetadata', resizeCanvas);
 
         function drawFrame() {
             context.clearRect(0, 0, canvasElement.width, canvasElement.height);
@@ -413,7 +401,7 @@ $(document).ready(function() {
             requestAnimationFrame(drawFrame);
         }
 
-        videoElement.addEventListener('play', () => {
+        videoElement.addEventListener('loadedmetadata', () => {
             resizeCanvas();
             requestAnimationFrame(drawFrame);
         });
