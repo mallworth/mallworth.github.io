@@ -385,14 +385,14 @@ $(document).ready(function() {
                     const blue = data[index + 2];
                     const brightness = (red + green + blue) / 3;
 
-                    const chars = [[0, ' '],
-                                    [70, ','],
-                                    [100, '~'],
-                                    [150, '*'],
-                                    [190, '?'],
-                                    [230, '$'],
-                                    [245, '#'],
-                                    [255, '@']]
+                    const chars = [[0, '@'],
+                                    [70, '#'],
+                                    [100, '$'],
+                                    [150, '?'],
+                                    [190, '*'],
+                                    [230, '~'],
+                                    [245, ','],
+                                    [255, ' ']]
 
                     let char = 'x';
 
