@@ -258,6 +258,7 @@ $(document).ready(function() {
         $('ul li a').css('color', color.hexString);
         $(':root').css('--foreground-burger', color.hexString);
         $('p').css('color', color.hexString);
+        $('a').css('color', color.hexString);
         
         // Apply dynamic lighter color to input placeholder text 
         let r = Math.min(255, parseInt(color.hexString.slice(1, 3), 16) + 45);
@@ -280,6 +281,7 @@ $(document).ready(function() {
         $('#typesomething').css('font-family', newfont);
         $('#font').css('font-family', newfont);
         $('p').css('font-family', newfont);
+        $('h2').css('font-family', newfont);
         $('ul li a').css('font-family', newfont);
 
         let cur_color = $(this).css('color');
