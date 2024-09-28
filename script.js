@@ -333,15 +333,15 @@ $(document).ready(function() {
         const canvasElement = document.getElementById('webcamCanvas');
         const context = canvasElement.getContext('2d', { willReadFrequently: true});
         // const context = canvasElement.getContext('2d');
-        let font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
-        let spacing = Math.min(12, font_size);
+        let font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
+        let spacing = Math.max(12, font_size);
 
         function resizeCanvas() {
             canvasElement.width = videoElement.videoWidth * 2;
             canvasElement.height = videoElement.videoHeight * 2;
 
-            font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
-            spacing = Math.min(12, font_size);
+            font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
+            spacing = Math.max(12, font_size);
         }
 
         function drawFrame() {
@@ -357,11 +357,12 @@ $(document).ready(function() {
 
             const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
             const data = frame.data;
+            console.log(`Data length: ${data.length}`);
 
             context.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
             let color = $('.name').css('color');
-            context.font = '800 ${font_size}px Monaco';
+            context.font = `bold ${font_size}px Monaco`;
             context.fillStyle = color;
 
             for (let y = 0; y < canvasElement.height; y += spacing) {
@@ -374,12 +375,12 @@ $(document).ready(function() {
                     const brightness = (red + green + blue) / 3;
 
                     const chars = [[0, '@'],
-                                    [70, '#'],
-                                    [100, '$'],
-                                    [150, '?'],
-                                    [190, '*'],
-                                    [230, '~'],
-                                    [245, ','],
+                                    [100, '#'],
+                                    [125, '$'],
+                                    [160, '?'],
+                                    [170, '*'],
+                                    [210, '~'],
+                                    [225, ','],
                                     [255, ' ']]
 
                     let char = 'x';
@@ -387,6 +388,7 @@ $(document).ready(function() {
                     for (let i = 0; i < 6; i++) {
                         if (chars[i][0] <= brightness && brightness <= chars[i+1][0]) {
                             char = chars[i][1];
+                            break;
                         }
                     }
 
@@ -395,6 +397,7 @@ $(document).ready(function() {
                     }
 
                     context.fillText(char, x, y);
+                    console.log('right after filltext');
                 }
             }
 
