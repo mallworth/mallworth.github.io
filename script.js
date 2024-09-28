@@ -201,10 +201,33 @@ $(document).ready(function() {
                     startWebcam();
                 }
               }, '100');
-
-            
         }
     });
+
+    // Not the most elegant way but..
+    $('a').click(function(){
+        let curId = $(this).attr('id');
+
+        if ($(this).hasClass('invis')){   
+            // Add invis everywhere so home can be switched back to
+            $('li a').addClass('invis');        
+            $('.page').hide();
+
+            // Close burger if open
+            if ($('.burgerbox').is(':checked')) {
+                $('.burgerbox[type="checkbox"]').prop('checked', false);
+            }
+
+            // Concatenate to get page id
+            $('#page' + curId).show();  
+            window.scrollTo(0, 0);
+
+            setTimeout(() => {
+                $('#typesomething').focus();
+            }, '100');
+        }
+    });
+
 
     // Type & Color
     // Color picker widget from https://iro.js.org/
@@ -309,13 +332,14 @@ $(document).ready(function() {
     function processFrames() {
         const videoElement = document.getElementById('webcamVideo');
         const canvasElement = document.getElementById('webcamCanvas');
-        const context = canvasElement.getContext('2d', { willReadFrequently: true});
+        // const context = canvasElement.getContext('2d', { willReadFrequently: true});
+        const context = canvasElement.getContext('2d');
         let font_size;
 
         font_size = Math.max(16, Math.round((-0.035)*($(window).width()) + 44.5));
 
         // let spacing = Math.round(font_size - (font_size * 0.1875));
-        let spacing = font_size - 6;
+        let spacing = Math.min(12, font_size);
 
         function resizeCanvas() {
             canvasElement.width = videoElement.videoWidth * 2;
@@ -326,7 +350,7 @@ $(document).ready(function() {
             // let spacing = Math.round(font_size - (font_size * 0.1875));
             // spacing = font_size - Math.min(6, Math.round($(window).width() / 100));
             spacing = Math.min(12, font_size);
-            console.log(font_size);
+            // console.log(font_size);
             // console.log(spacing);
         }
 
