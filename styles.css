@@ -229,22 +229,6 @@ canvas {
     padding: 0;
 }
 
-.contactbox {
-    /* Eliminate weird double outline */
-    outline: none !important;
-    display: block;
-    width: 180px; 
-    height: 30px;
-    font-size: 15px;
-    font-family: 'Playfair Display';
-    color: #2c3628;
-    background-color: #ffffff;
-    border: 2px solid #2c3628;
-    border-radius: 7px;
-    cursor: pointer;
-    text-align: center;
-}
-
 @media (min-width: 801px) {
     /* no 🍔 for computer people */
     .burger, .mobile-tabs {
