@@ -293,7 +293,7 @@ $(document).ready(function() {
         
         $('<style>')
             .prop('type', 'text/css')
-            .html(`input::placeholder { color: ${lighter}; }`)
+            .html(`#typesomething::placeholder { color: ${lighter}; }`)
             .appendTo('head');
     });
 
