@@ -75,7 +75,7 @@ li a {
     height: 30vh; 
 }
 
-input {
+#typesomething {
     border: none;
     text-align: center;
     display: block;
@@ -84,12 +84,12 @@ input {
     color: #2c3628;
 }
 
-input::placeholder {
+#typesomething::placeholder {
     color: #596355;
     font-style: italic;
 }
 
-input:focus {
+#typesomething:focus {
     outline: none;
     caret-color: transparent;
 }
@@ -229,6 +229,22 @@ canvas {
     padding: 0;
 }
 
+.contactbox {
+    /* Eliminate weird double outline */
+    outline: none !important;
+    display: block;
+    width: 180px; 
+    height: 30px;
+    font-size: 15px;
+    font-family: 'Playfair Display';
+    color: #2c3628;
+    background-color: #ffffff;
+    border: 2px solid #2c3628;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+}
+
 @media (min-width: 801px) {
     /* no 🍔 for computer people */
     .burger, .mobile-tabs {
@@ -239,7 +255,7 @@ canvas {
         width: 800px !important;
     }
 
-    input {
+    #typesomething {
         font-size: 7vw; 
     }
 
@@ -379,7 +395,7 @@ canvas {
         width: 89vw !important;
     }
 
-    input {
+    #typesomething {
         font-size: 3rem; 
     }
 }
@@ -430,7 +446,7 @@ canvas {
         margin-bottom: -45px;
     }
 
-    input {
+    #typesomething {
         font-size: 2rem !important;
     }
 
@@ -451,7 +467,7 @@ canvas {
         gap: 20px;
     }
 
-    input {
+    #typesomething {
         font-size: 2.5rem;
     }
 }
