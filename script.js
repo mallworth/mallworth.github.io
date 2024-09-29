@@ -204,7 +204,7 @@ $(document).ready(function() {
         }
     });
 
-    // Not the most elegant way but..
+    // Not the most elegant but..for link from coding page text to T & C
     $('a').click(function(){
         let curId = $(this).attr('id');
 
@@ -223,7 +223,9 @@ $(document).ready(function() {
             window.scrollTo(0, 0);
 
             setTimeout(() => {
-                $('#typesomething').focus();
+                if (curId == '4' && $(window).width() > 800) {
+                    $('#typesomething').focus();
+                }
             }, '100');
         }
     });
@@ -315,102 +317,100 @@ $(document).ready(function() {
 
     // CODING: TTimage video stream
     function startWebcam() {
-    const videoElement = document.getElementById('webcamVideo');
-    const constraints = { video: true };
-
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(stream => {
-            videoElement.srcObject = stream;
-            processFrames();
-        })
-        .catch(error => {
-            console.error('Error accessing webcam: ', error);
-        })
-    }
-
-    function processFrames() {
         const videoElement = document.getElementById('webcamVideo');
-        const canvasElement = document.getElementById('webcamCanvas');
-        const context = canvasElement.getContext('2d', { willReadFrequently: true});
-        // const context = canvasElement.getContext('2d');
-        let font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
-        let spacing = Math.max(12, font_size);
+        const constraints = { video: true };
 
-        function resizeCanvas() {
-            canvasElement.width = videoElement.videoWidth * 2;
-            canvasElement.height = videoElement.videoHeight * 2;
-
-            font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
-            spacing = Math.max(12, font_size);
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => {
+                videoElement.srcObject = stream;
+                processFrames();
+            })
+            .catch(error => {
+                console.error('Error accessing webcam: ', error);
+            })
         }
 
-        function drawFrame() {
-            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        function processFrames() {
+            const videoElement = document.getElementById('webcamVideo');
+            const canvasElement = document.getElementById('webcamCanvas');
+            const context = canvasElement.getContext('2d', { willReadFrequently: true});
+            // const context = canvasElement.getContext('2d');
+            let font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
+            let spacing = Math.max(12, font_size);
 
-            // Mirror webcam feed
-            context.translate(canvasElement.width, 0);
-            context.scale(-1, 1);
+            function resizeCanvas() {
+                canvasElement.width = videoElement.videoWidth * 2;
+                canvasElement.height = videoElement.videoHeight * 2;
 
-            context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-            context.setTransform(1, 0, 0, 1, 0, 0);
-
-            const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
-            const data = frame.data;
-            console.log(`Data length: ${data.length}`);
-
-            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
-
-            let color = $('.name').css('color');
-            context.font = `bold ${font_size}px Monaco`;
-            context.fillStyle = color;
-
-            for (let y = 0; y < canvasElement.height; y += spacing) {
-                for (let x = 0; x < canvasElement.width; x += spacing) {
-
-                    const index = ((y * canvasElement.width) + x) * 4;
-                    const red = data[index];
-                    const green = data[index + 1];
-                    const blue = data[index + 2];
-                    const brightness = (red + green + blue) / 3;
-
-                    const chars = [[0, '@'],
-                                    [100, '#'],
-                                    [125, '$'],
-                                    [160, '?'],
-                                    [170, '*'],
-                                    [210, '~'],
-                                    [225, ','],
-                                    [255, ' ']]
-
-                    let char = 'x';
-
-                    for (let i = 0; i < 6; i++) {
-                        if (chars[i][0] <= brightness && brightness <= chars[i+1][0]) {
-                            char = chars[i][1];
-                            break;
-                        }
-                    }
-
-                    if (char == 'x') {
-                        char = chars[7][1];
-                    }
-
-                    context.fillText(char, x, y);
-                    console.log('right after filltext');
-                }
+                font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
+                spacing = Math.max(12, font_size);
             }
 
-            requestAnimationFrame(drawFrame);
+            function drawFrame() {
+                context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+                // Mirror webcam feed
+                context.translate(canvasElement.width, 0);
+                context.scale(-1, 1);
+
+                context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+                context.setTransform(1, 0, 0, 1, 0, 0);
+
+                const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                const data = frame.data;
+                console.log(`Data length: ${data.length}`);
+
+                context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+                let color = $('.name').css('color');
+                context.font = `bold ${font_size}px Monaco`;
+                context.fillStyle = color;
+
+                for (let y = 0; y < canvasElement.height; y += spacing) {
+                    for (let x = 0; x < canvasElement.width; x += spacing) {
+
+                        const index = ((y * canvasElement.width) + x) * 4;
+                        const red = data[index];
+                        const green = data[index + 1];
+                        const blue = data[index + 2];
+                        const brightness = (red + green + blue) / 3;
+
+                        const chars = [[0, '@'],
+                                        [100, '#'],
+                                        [125, '$'],
+                                        [160, '?'],
+                                        [170, '*'],
+                                        [210, '~'],
+                                        [225, ','],
+                                        [255, ' ']]
+
+                        let char = 'x';
+
+                        for (let i = 0; i < 6; i++) {
+                            if (chars[i][0] <= brightness && brightness <= chars[i+1][0]) {
+                                char = chars[i][1];
+                                break;
+                            }
+                        }
+
+                        if (char == 'x') {
+                            char = chars[7][1];
+                        }
+
+                        context.fillText(char, x, y);
+                        console.log('right after filltext');
+                    }
+                }
+
+                requestAnimationFrame(drawFrame);
+            }
+
+            videoElement.addEventListener('loadedmetadata', () => {
+                resizeCanvas();
+                requestAnimationFrame(drawFrame);
+            });
+
+            window.addEventListener('resize', resizeCanvas);
         }
-
-        videoElement.addEventListener('loadedmetadata', () => {
-            resizeCanvas();
-            requestAnimationFrame(drawFrame);
-        });
-
-        window.addEventListener('resize', resizeCanvas);
-    }
 });
-
-
