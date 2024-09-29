@@ -335,15 +335,16 @@ $(document).ready(function() {
         const videoElement = document.getElementById('webcamVideo');
         const canvasElement = document.getElementById('webcamCanvas');
         const context = canvasElement.getContext('2d', { willReadFrequently: true});
-        let font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
-        let spacing = Math.max(12, font_size);
+        let font_size = Math.max(12, Math.round((-0.04)*($(window).width()) + 35));
+        let spacing = Math.max(10, font_size);
 
         function resizeCanvas() {
             canvasElement.width = videoElement.videoWidth * 2;
             canvasElement.height = videoElement.videoHeight * 2;
 
-            font_size = Math.max(14, Math.round((-0.04)*($(window).width()) + 44.5));
-            spacing = Math.max(12, font_size);
+            font_size = Math.max(12, Math.round((-0.04)*($(window).width()) + 35));
+            spacing = Math.max(10, font_size);
+            console.log(font_size);
         }
 
         function drawFrame() {
@@ -359,7 +360,6 @@ $(document).ready(function() {
 
             const frame = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
             const data = frame.data;
-            console.log(`Data length: ${data.length}`);
 
             context.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
