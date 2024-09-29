@@ -281,7 +281,7 @@ canvas {
         width: 75%;
         align-self: center;
         margin-left: 12.5vw;
-        margin-top: -30px;
+        margin-top: 17vh;
     }
 
     #right {
@@ -407,7 +407,8 @@ canvas {
         width: 80%;
         align-self: center;
         margin-left: 7.5vw;
-        margin-top: -37px;
+        /* margin-top: -37px; */
+        margin-top: 17vh;
     }
 
     :root {
