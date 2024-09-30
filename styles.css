@@ -399,7 +399,7 @@ canvas {
     }
 
     .about-me {
-        text-align: justify;
+        text-align: left;
         font-size: 5vw;
     }
 
