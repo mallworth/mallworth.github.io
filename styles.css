@@ -75,6 +75,13 @@ li a {
     height: 30vh; 
 }
 
+#ll-container {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+}
+
 #typesomething {
     border: none;
     text-align: center;
@@ -182,7 +189,7 @@ p a {
 /* Hover zoom effect */
 .hover-zoom img {
     transition: transform .25s ease;
-    width: 100%; 
+    /* width: 100%;  */
     height: auto; 
     display: block; 
     transform-origin: center center; 
@@ -237,6 +244,10 @@ canvas {
 
     .non-photography-img {
         width: 800px !important;
+    }
+
+    .non-photography-img-vert {
+        max-width: 400px !important;
     }
 
     #typesomething {
@@ -379,6 +390,10 @@ canvas {
         width: 89vw !important;
     }
 
+    .non-photography-img-vert {
+        width: 44vw !important;
+    }
+
     #typesomething {
         font-size: 3rem; 
     }
@@ -455,6 +470,7 @@ canvas {
     #typesomething {
         font-size: 2.5rem;
     }
+
 }
 
 @media (min-width: 1640px) {
