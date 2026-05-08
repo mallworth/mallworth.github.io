@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     react(),
     viteStaticCopy({
-      targets: [{ src: 'photos/*', dest: 'photos' }]
+      targets: [{ src: 'photos/*.{jpg,jpeg,png,gif}', dest: 'photos' }]
     })
   ],
   build: {
