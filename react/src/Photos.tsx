@@ -6,9 +6,12 @@ export default function Photos() {
 
   const items = useMemo(
     () => [
-      { src: `${baseUrl}photos/1.jpg` },
       { src: `${baseUrl}photos/2.jpg` },
+      { src: `${baseUrl}photos/IMG_7230.jpeg` },
       { src: `${baseUrl}photos/3.jpg` },
+      { src: `${baseUrl}photos/IMG_5945.JPG` },
+      { src: `${baseUrl}photos/IMG_0304.jpeg` },
+      { src: `${baseUrl}photos/1.jpg` }
     ],
     [baseUrl]
   )
